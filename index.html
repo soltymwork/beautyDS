@@ -9,7 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Great+Vibes&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-a, button, [role="button"] { -webkit-tap-highlight-color: transparent; tap-highlight-color: transparent; }
+a, button, input, [role="button"] { -webkit-tap-highlight-color: transparent; tap-highlight-color: transparent; outline: none; }
+a:focus, button:focus, input:focus { outline: none; }
 html { scroll-behavior: smooth; font-size: 18px; }
 body {
   font-family: 'Jost', sans-serif;
@@ -596,22 +597,14 @@ footer { background: var(--b2); border-top: 1px solid var(--border); padding: 5r
     pointer-events: all;
   }
 
-  /* Animácia položiek zprava */
+  /* Animácia položiek zprava — riadená cez JS */
   @keyframes slideInRight {
-    from { opacity: 0; transform: translateX(32px); }
+    from { opacity: 0; transform: translateX(28px); }
     to   { opacity: 1; transform: translateX(0); }
   }
-  .mobile-menu.open .mobile-menu-header,
-  .mobile-menu.open .mobile-menu-item,
-  .mobile-menu.open .mobile-menu-actions {
-    animation: slideInRight 0.32s cubic-bezier(0.23,1,0.32,1) both;
+  .menu-animate {
+    animation: slideInRight 0.36s cubic-bezier(0.23,1,0.32,1) both;
   }
-  .mobile-menu.open .mobile-menu-header      { animation-delay: 0.04s; }
-  .mobile-menu.open .mobile-menu-item:nth-child(2) { animation-delay: 0.08s; }
-  .mobile-menu.open .mobile-menu-item:nth-child(3) { animation-delay: 0.12s; }
-  .mobile-menu.open .mobile-menu-item:nth-child(4) { animation-delay: 0.16s; }
-  .mobile-menu.open .mobile-menu-item:nth-child(5) { animation-delay: 0.20s; }
-  .mobile-menu.open .mobile-menu-actions     { animation-delay: 0.24s; }
 
   .mobile-menu-header {
     display: flex; align-items: center; justify-content: space-between;
@@ -1100,6 +1093,19 @@ function openMenu() {
   mobileMenu.classList.add('open');
   hamburger.classList.add('open');
   document.body.style.overflow = 'hidden';
+  // Animácia položiek zprava s oneskorením
+  const items = mobileMenu.querySelectorAll('.mobile-menu-header, .mobile-menu-item, .mobile-menu-actions');
+  items.forEach(function(el, i) {
+    el.classList.remove('menu-animate');
+    el.style.opacity = '0';
+    setTimeout(function() {
+      el.style.opacity = '';
+      el.classList.add('menu-animate');
+      el.addEventListener('animationend', function() {
+        el.classList.remove('menu-animate');
+      }, { once: true });
+    }, 40 + i * 55);
+  });
 }
 function closeMenu() {
   mobileMenu.classList.remove('open');
