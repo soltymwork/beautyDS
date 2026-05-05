@@ -54,7 +54,7 @@ nav {
 /* MEGA DROPDOWN */
 .mega-drop {
   position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px);
-  margin-top: 8px; width: 580px; background: var(--b2);
+  width: 580px; background: var(--b2);
   border: 1px solid var(--border);
   box-shadow: 0 28px 70px rgba(0,0,0,0.55);
   opacity: 0; visibility: hidden; pointer-events: none;
@@ -95,14 +95,6 @@ nav {
   position: relative; min-height: 92vh;
   display: flex; align-items: stretch; overflow: hidden;
   background: var(--black);
-}
-
-/* Gold glow na spodnom okraji hero — len desktop */
-.hero::after {
-  content: '';
-  position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
-  background: linear-gradient(to bottom, transparent 0%, rgba(201,168,76,0.13) 60%, rgba(201,168,76,0.22) 100%);
-  z-index: 4; pointer-events: none;
 }
 
 /* Dark background base */
@@ -575,7 +567,6 @@ footer { background: var(--b2); border-top: 1px solid var(--border); padding: 5r
 
   /* NAV */
   nav { padding: 0 1.2rem; height: 60px; position: sticky; z-index: 400; border-bottom: none; }
-  .hero::after { display: none; }
   .nav-logo { font-size: 1.8rem; }
   .nav-links { display: none !important; }
   .nav-actions { display: none !important; }
