@@ -557,7 +557,7 @@ footer { background: var(--b2); border-top: 1px solid var(--border); padding: 5r
 @media (max-width: 768px) {
 
   /* NAV */
-  nav { padding: 0 1.2rem; height: 60px; position: sticky; z-index: 300; }
+  nav { padding: 0 1.2rem; height: 60px; position: sticky; z-index: 400; }
   .nav-logo { font-size: 1.8rem; }
   .nav-links { display: none !important; }
   .nav-actions { display: none !important; }
@@ -566,9 +566,10 @@ footer { background: var(--b2); border-top: 1px solid var(--border); padding: 5r
   .nav-hamburger {
     display: flex; flex-direction: column; justify-content: center;
     align-items: center; gap: 5px;
-    width: 40px; height: 40px;
+    width: 44px; height: 44px;
     cursor: pointer; background: none; border: none; padding: 4px;
-    z-index: 600; position: relative; flex-shrink: 0;
+    z-index: 1000; position: relative; flex-shrink: 0;
+    touch-action: manipulation; -webkit-tap-highlight-color: transparent;
   }
   .nav-hamburger span {
     display: block; width: 22px; height: 1.5px;
@@ -663,11 +664,12 @@ footer { background: var(--b2); border-top: 1px solid var(--border); padding: 5r
 
   /* TOP BAR - 1 riadok */
   .topbar {
-    font-size: 0.68rem !important;
-    padding: 0.42rem 0.5rem !important;
-    white-space: nowrap; overflow: hidden;
-    text-overflow: ellipsis;
-    letter-spacing: 0.06em !important;
+    font-size: clamp(0.58rem, 2.8vw, 0.72rem) !important;
+    padding: 0.38rem 0.4rem !important;
+    white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: clip;
+    letter-spacing: 0.03em !important;
   }
 
   /* HERO */
@@ -759,7 +761,7 @@ footer { background: var(--b2); border-top: 1px solid var(--border); padding: 5r
 </head>
 <body>
 
-<div style="background:#9a7a30;color:#000;text-align:center;padding:0.55rem;font-size:0.8rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">Bezplatná doprava pri objednávke nad 80 €</div>
+<div class="topbar" style="background:#9a7a30;color:#000;text-align:center;padding:0.55rem;font-size:0.8rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">Bezplatná doprava pri objednávke nad 80 €</div>
 <div class="mockup-badge">Vizuálny návrh</div>
 
 <!-- NAV -->
@@ -1089,10 +1091,17 @@ function closeMenu() {
   document.body.style.overflow = '';
 }
 
-if (hamburger) hamburger.addEventListener('click', () => {
+function toggleMenu() {
   mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
-});
-if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+}
+if (hamburger) {
+  hamburger.addEventListener('click', toggleMenu);
+  hamburger.addEventListener('touchend', function(e) { e.preventDefault(); toggleMenu(); });
+}
+if (closeBtn) {
+  closeBtn.addEventListener('click', closeMenu);
+  closeBtn.addEventListener('touchend', function(e) { e.preventDefault(); closeMenu(); });
+}
 // Zavrieť pri kliknutí na link
 document.querySelectorAll('.mobile-menu-item > a, .mobile-submenu a').forEach(a => {
   a.addEventListener('click', closeMenu);
