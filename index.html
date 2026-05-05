@@ -11,7 +11,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 a, button, input { outline: none; }
 *:focus { outline: none; }
-html { scroll-behavior: smooth; font-size: 18px; }
+html { scroll-behavior: smooth; font-size: 20px; }
 body {
   font-family: 'Jost', sans-serif;
   background: #0a0a0a; color: #e8e0d0;
@@ -560,6 +560,7 @@ footer { background: var(--b2); border-top: 1px solid var(--border); padding: 5r
 
 /* ── MOBILE (max 768px) ── */
 @media (max-width: 768px) {
+  html { font-size: 17px; }
 
   /* NAV */
   nav { padding: 0 1.2rem; height: 60px; position: sticky; z-index: 400; }
@@ -763,6 +764,7 @@ footer { background: var(--b2); border-top: 1px solid var(--border); padding: 5r
 
 /* ── SMALL MOBILE (max 480px) ── */
 @media (max-width: 480px) {
+  html { font-size: 16px; }
   .hero-title { font-size: clamp(2rem, 9vw, 2.8rem); }
   .nav-logo { font-size: 1.6rem; }
 }
