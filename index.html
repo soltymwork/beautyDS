@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Great+Vibes&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+a, button, [role="button"] { -webkit-tap-highlight-color: transparent; tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; font-size: 18px; }
 body {
   font-family: 'Jost', sans-serif;
@@ -579,33 +580,45 @@ footer { background: var(--b2); border-top: 1px solid var(--border); padding: 5r
     background: var(--text); transition: transform 0.3s ease, opacity 0.3s ease;
     transform-origin: center;
   }
-  .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-  .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  .nav-hamburger.open { opacity: 0; pointer-events: none; }
 
-  /* Mobile menu */
+  /* Mobile menu — celá obrazovka */
   .mobile-menu {
-    position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
-    background: rgba(10,10,10,0.98); backdrop-filter: blur(20px);
-    z-index: 500; overflow-y: auto;
-    border-top: 1px solid var(--border);
-    /* Animácia — schovanie */
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10,10,10,0.99);
+    z-index: 900; overflow-y: auto;
     opacity: 0;
-    transform: translateY(-12px);
     pointer-events: none;
-    transition: opacity 0.28s cubic-bezier(0.4,0,0.2,1),
-                transform 0.28s cubic-bezier(0.4,0,0.2,1);
+    transition: opacity 0.28s cubic-bezier(0.4,0,0.2,1);
   }
   .mobile-menu.open {
     opacity: 1;
-    transform: translateY(0);
     pointer-events: all;
   }
 
+  /* Animácia položiek zprava */
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(32px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  .mobile-menu.open .mobile-menu-header,
+  .mobile-menu.open .mobile-menu-item,
+  .mobile-menu.open .mobile-menu-actions {
+    animation: slideInRight 0.32s cubic-bezier(0.23,1,0.32,1) both;
+  }
+  .mobile-menu.open .mobile-menu-header      { animation-delay: 0.04s; }
+  .mobile-menu.open .mobile-menu-item:nth-child(2) { animation-delay: 0.08s; }
+  .mobile-menu.open .mobile-menu-item:nth-child(3) { animation-delay: 0.12s; }
+  .mobile-menu.open .mobile-menu-item:nth-child(4) { animation-delay: 0.16s; }
+  .mobile-menu.open .mobile-menu-item:nth-child(5) { animation-delay: 0.20s; }
+  .mobile-menu.open .mobile-menu-actions     { animation-delay: 0.24s; }
+
   .mobile-menu-header {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 1.4rem 1.5rem 1rem;
+    padding: 0 1.2rem;
+    height: 60px;
     border-bottom: 1px solid var(--bsoft);
+    flex-shrink: 0;
   }
   .mobile-menu-logo {
     font-family: 'Great Vibes', cursive;
