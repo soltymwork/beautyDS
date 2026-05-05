@@ -97,6 +97,14 @@ nav {
   background: var(--black);
 }
 
+/* Gold glow na spodnom okraji hero — len desktop */
+.hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
+  background: linear-gradient(to bottom, transparent 0%, rgba(201,168,76,0.13) 60%, rgba(201,168,76,0.22) 100%);
+  z-index: 4; pointer-events: none;
+}
+
 /* Dark background base */
 .hero-bg-img {
   position: absolute; inset: 0; z-index: 0;
@@ -564,6 +572,7 @@ footer { background: var(--b2); border-top: 1px solid var(--border); padding: 5r
 
   /* NAV */
   nav { padding: 0 1.2rem; height: 60px; position: sticky; z-index: 400; border-bottom: none; }
+  .hero::after { display: none; }
   .nav-logo { font-size: 1.8rem; }
   .nav-links { display: none !important; }
   .nav-actions { display: none !important; }
