@@ -1094,17 +1094,21 @@ function openMenu() {
   hamburger.classList.add('open');
   document.body.style.overflow = 'hidden';
   const items = mobileMenu.querySelectorAll('.mobile-menu-header, .mobile-menu-item, .mobile-menu-actions');
-  items.forEach(function(el, i) {
+  // Nastav počiatočný stav — skryté vpravo
+  items.forEach(function(el) {
+    el.style.transition = 'none';
     el.style.opacity = '0';
     el.style.transform = 'translateX(28px)';
-    el.style.transition = 'none';
   });
+  // Vynúť reflow aby prehliadač "videl" počiatočný stav
+  mobileMenu.getBoundingClientRect();
+  // Animuj každú položku s oneskorením
   items.forEach(function(el, i) {
     setTimeout(function() {
-      el.style.transition = 'opacity 0.35s ease, transform 0.35s cubic-bezier(0.23,1,0.32,1)';
+      el.style.transition = 'opacity 0.38s ease, transform 0.38s cubic-bezier(0.23,1,0.32,1)';
       el.style.opacity = '1';
       el.style.transform = 'translateX(0)';
-    }, 40 + i * 60);
+    }, i * 70);
   });
 }
 function closeMenu() {
